@@ -1,0 +1,1 @@
+@reboot DISPLAY=:0 /home/pi/pan-tilt-control/astart.sh >> /home/pi/pan-tilt-control/reboot.log 2>&1
