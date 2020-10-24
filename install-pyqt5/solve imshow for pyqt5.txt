@@ -1,0 +1,3 @@
+sudo nano /etc/xdg/qt5ct/qt5ct.conf
+# replace style=gtk2 with style=gtk3
+ctrl+x y ENTER
