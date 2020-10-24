@@ -1,0 +1,64 @@
+After searching for the same problem, I came across following usefull posts:
+
+https://raspberrypi.stackexchange.com/questions/62939/pyqt5-on-a-raspberry-pi
+
+PyQt5 error "PyCapsule_GetPointer called with incorrect name"
+
+They helped me a lot, and below answer is just a refined version of the original posts above.
+
+Below solution worked on my Raspberry Pi 3A+ with Raspbian Buster and virtual environment for python:
+
+NOTE: multiple SIP installations can cause errors when importing PyQt5 in python. If below solution does not work, then burn image backup on SD card and try something else. Don't try to install something else on top of non working image.
+
+take SD card image backup
+NOTE: not all SIP's are compatible with all PyQt5. Read installation documentation to check compatibility.
+
+download required PyQt5 source, for example: PyQt5_gpl-5.12.3.tar.gz from https://riverbankcomputing.com/software/pyqt/download5
+
+download required SIP source, for example: sip-4.19.14.tar.gz from https://riverbankcomputing.com/software/sip/download
+
+place the archives in convenient directory, for example: /home/pi
+
+from terminal go to the directory where archieves are located:
+
+cd /home/pi
+
+unzip the archives using:
+
+tar -xzvf PyQt5_gpl-5.12.3.tar.gz
+
+tar -xzvf sip-4.19.14.tar.gz
+
+go to virtual environment, in my case it is "cv":
+
+workon cv
+
+install QT Core:
+
+sudo apt-get install qt5-default
+
+configure SIP:
+
+cd /home/pi/sip-4.19.14
+
+python configure.py --sip-module PyQt5.sip
+
+build and install SIP make:
+
+make
+
+sudo make install
+
+configure PyQt5:
+
+cd /home/pi/PyQt5_gpl-5.12.3
+
+python configure.py
+
+build and install PyQt5 make:
+
+make
+
+sudo make install
+
+NOTE: building PyQt5 make takes 2 hours in Raspberry Pi 3 A+, installing takes another 15 min
